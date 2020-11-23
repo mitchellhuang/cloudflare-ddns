@@ -1,20 +1,19 @@
 import requests, json, sys, os
 import time
 
-PATH = os.getcwd() + "/"
 version = float(str(sys.version_info[0]) + "." + str(sys.version_info[1]))
 
 if(version < 3.5):
     raise Exception("This script requires Python 3.5+")
 
-with open(PATH + "config.json") as config_file:
+with open("/config/config.json") as config_file:
     config = json.loads(config_file.read())
 
 def getIPs():
     a = ""
     aaaa = ""
     try:
-        a = requests.get("https://dns.timknowsbest.com/api/ipv4").text
+        a = requests.get("https://api.ipify.org?format=json").json().get("ip")
     except Exception:
         print("Warning: IPv4 not detected.")
     try:
